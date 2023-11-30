@@ -1,87 +1,48 @@
-[![Docker](https://img.shields.io/docker/v/savagesoftware/portainer-backup/latest?color=darkgreen&logo=docker&label=DockerHub%20Latest%20Image)](https://hub.docker.com/repository/docker/savagesoftware/portainer-backup/)
-[![NPM](https://img.shields.io/npm/v/portainer-backup?color=darkgreen&logo=npm&label=NPM%20Registry)](https://www.npmjs.com/package/portainer-backup)
-[![GitHub package.json version](https://img.shields.io/github/package-json/v/savagesoftware/portainer-backup?color=darkgreen&label=GitHub%20Source&logo=github)](https://github.com/SavageSoftware/portainer-backup)
-[![node-current](https://img.shields.io/node/v/portainer-backup)](https://www.npmjs.com/package/portainer-backup)
-[![portainer](https://img.shields.io/badge/Portainer->=v2.11.0-darkgreen)](https://www.portainer.io/)
+<h1 align="center">Portainer Backup<br />
+<div align="center">
+<img src="https://github.com/dockur/portainer-backup/raw/master/assets/screenshot.jpg" title="Screenshot" style="max-width:100%;" width="256" />
+</div>
+<div align="center">
 
-# Portainer Backup
+[![Build]][build_url]
+[![Version]][tag_url]
+[![Size]][tag_url]
+[![Pulls]][hub_url]
 
-(Developed with ♥ by SavageSoftware, LLC.)
-
----
-
-## Overview
+</div></h1>
 
 A utility for scripting or scheduling Portainer backups.  This utility can backup the entire Portainer database, optionally protect the archive file with a password and can additionally backup the `docker-compose` files for stacks created in the Portainer web interface.
 
-![SCREENSHOT](https://github.com/SavageSoftware/portainer-backup/raw/master/assets/screenshot.jpg)
+## Usage
 
-| Resources | URL |
-| --- | --- |
-| DockerHub Image | https://hub.docker.com/repository/docker/savagesoftware/portainer-backup/ |
-| NPM Package Registry | https://www.npmjs.com/package/portainer-backup | 
+Via `docker-compose.yml`
 
----
-
-## Table of Contents
-
-* [Overview](#overview)
-* [TL;DR](#tldr)
-* [Prerequisites](#prerequisites)
-* [Installation](#installation)
-* [Supported Commands & Operations](#supported-commands--operations)
-  * [Backup](#backup)
-  * [Test](#test)
-  * [Schedule](#schedule)
-  * [Info](#info)
-  * [Stacks](#stacks)
-  * [Restore](#restore)
-* [Return Value](#return-value)
-* [Command Line Options & Environment Variables](#command-line-options--environment-variables)
-* [Schedule Expression](#schedule-expression)
-* [Filename & Directory Date/Time Substituions](#filename--directory-datetime-substituions)
-  * [Supported Presets](#supported-presets)
-  * [Supported Tokens](#supported-tokens)
-* [Command Line Help](#command-line-help)
-* [Docker Compose](#docker-compose)
-
----
-
-## TL;DR
-
-**NodeJS & NPM**
-
-Command to install **portainer-backup** using node's **NPM** command:
-
-```shell
-npm install --global portainer-backup   
+```yaml
+version: '3.8'
+services:
+  portainer-backup:
+    container_name: portainer-backup
+    image: dockurr/portainer-backup:latest
+    hostname: portainer-backup
+    restart: unless-stopped
+    command: schedule
+    environment:
+      TZ: America/New_York
+      PORTAINER_BACKUP_URL: "http://portainer:9000"
+      PORTAINER_BACKUP_TOKEN: "PORTAINER_ACCESS_TOKEN"
+      PORTAINER_BACKUP_PASSWORD: ""
+      PORTAINER_BACKUP_OVERWRITE: 1
+      PORTAINER_BACKUP_SCHEDULE: "0 0 0 * * *"
+      PORTAINER_BACKUP_STACKS: 1
+      PORTAINER_BACKUP_DRYRUN: 0
+      PORTAINER_BACKUP_CONCISE: 1
+      PORTAINER_BACKUP_DIRECTORY: "/backup"
+      PORTAINER_BACKUP_FILENAME: "portainer-backup.tar.gz"
+    volumes:
+      - /var/backup:/backup
 ```
 
-Command to launch **portainer-backup** after installing with NPM to perform a **backup** of your portainer server:
-
-```shell
-portainer-backup \
-  backup \
-  --url "http://portainer:9000" \
-  --token "PORTAINER_ACCESS_TOKEN" \
-  --directory $PWD/backup  
-```
-
-**NPX**
-
-Command to install & launch **portainer-backup** using node's [NPX](https://nodejs.dev/learn/the-npx-nodejs-package-runner) command to perform a **backup** of your portainer server:
-
-```shell
-npx portainer-backup \
-  backup \
-  --url "http://portainer:9000" \
-  --token "PORTAINER_ACCESS_TOKEN" \
-  --directory $PWD/backup  
-```
-
-**DOCKER**
-
-Command to launch **portainer-backup** using a Docker container to perform a **backup** of your portainer server:
+Via `docker run`
 
 ```shell
 docker run -it --rm \
@@ -89,47 +50,9 @@ docker run -it --rm \
   --volume $PWD/backup:/backup \
   --env PORTAINER_BACKUP_URL="http://portainer:9000" \
   --env PORTAINER_BACKUP_TOKEN="YOUR_ACCESS_TOKEN" \
-  savagesoftware/portainer-backup:latest \
+  dockurr/portainer-backup:latest \
   backup
 ```
-
-Supported Docker platforms:
-  * `linux/amd64` (Intel/AMD x64)
-  * `linux/arm64` (ARMv8)
-  * `linux/arm` (ARMv7)
-
----
-
-## Prerequisites
-
-**Portainer-backup** requires the following prerequisites:
-
-| Prerequisite | Version | Link |
-| ------------ | ------- | -------- |
-| NodeJS       | v16 (LTS) | https://nodejs.org |
-| Portainer    | v2.11.0 (and newer) | https://www.portainer.io |
-| Portainer Access Token | N/A | https://docs.portainer.io/v/ce-2.11/api/access |
-
-[![node-current](https://img.shields.io/node/v/portainer-backup)](https://www.npmjs.com/package/portainer-backup)
-[![portainer](https://img.shields.io/badge/Portainer-v2.11.0-darkgreen)](https://www.portainer.io/)
-
-This utility has only been tested on Portainer **v2.11.0** and later.
-
-> **NOTE:** If attempting to use with an older version of Portainer this utility will exit with an error message.  While it is untested, you can use the `--ignore-version` option to bypass the version validation/enforcement.
-
-You will need to obtain a [Portiner Access Token](https://docs.portainer.io/v/ce-2.11/api/access) from your Portainer server from an adminstrative user account.
-
----
-
-## Installation
-
-Command to install **portainer-backup** using node's **NPM** command:
-
-```shell
-npm install --global portainer-backup   
-```
-
-[![NPM](https://nodei.co/npm/portainer-backup.png?downloads=true&downloadRank=false&stars=false)](https://www.npmjs.com/package/portainer-backup)
 
 ---
 
@@ -151,16 +74,6 @@ This utility requires a single command to execute one of the built in operations
 ### Backup
 
 The **backup** operation will perform a single backup of the Portainer data from the specified server.  This backup file will be TAR.GZ archive and can optionally be protected with a password (`--password`).  The process will terminate immedately after the **backup** operation is complete.
- 
-The following command will perform a **backup** of the Portainer data.
-```shell
-portainer-backup \
-  backup \
-  --url "http://portainer:9000" \
-  --token "PORTAINER_ACCESS_TOKEN" \
-  --directory $PWD/backup \
-  --overwrite
-``` 
 
 The following docker command will perform a **backup** of the Portainer data.
 ```shell
@@ -172,22 +85,13 @@ docker run -it --rm \
   --env PORTAINER_BACKUP_TOKEN="PORTAINER_ACCESS_TOKEN" \
   --env PORTAINER_BACKUP_OVERWRITE=true  \
   --env PORTAINER_BACKUP_DIRECTORY=/backup \
-  savagesoftware/portainer-backup:latest \
+  dockurr/portainer-backup:latest \
   backup
 ``` 
 
 ### Test
 
 The **test** operation will perform a single backup of the Portainer data from the specified server.  With the **test** operation, no data will be saved on the filesystem.  The **test** operation is the same as using the `--dryrun` option.  The process will terminate immedately after the **test** operation is complete.
- 
-The following command will perform a **test** of the Portainer data.
-```shell
-portainer-backup \
-  test \
-  --url "http://portainer:9000" \
-  --token "PORTAINER_ACCESS_TOKEN" \
-  --directory $PWD/backup
-``` 
 
 The following docker command will perform a **test** of the Portainer data.
 ```shell
@@ -198,7 +102,7 @@ docker run -it --rm \
   --env PORTAINER_BACKUP_URL="http://portainer:9000" \
   --env PORTAINER_BACKUP_TOKEN="PORTAINER_ACCESS_TOKEN" \
   --env PORTAINER_BACKUP_DIRECTORY=/backup \
-  savagesoftware/portainer-backup:latest \
+  dockurr/portainer-backup:latest \
   test
 ``` 
 
@@ -206,17 +110,6 @@ docker run -it --rm \
 ### Schedule
 
 The **schedule** operation will perform continious scheduled backups of the Portainer data from the specified server.  The `--schedule` option or `PORTAINER_BACKUP_SCHEDULE` environment variable takes a cron-like string expression to define the backup schedule.  The process will run continiously unless a validation step fails immediately after startup.
- 
-The following command will perform a **test** of the Portainer data.
-```shell
-portainer-backup \
-  schedule \
-  --url "http://portainer:9000" \
-  --token "PORTAINER_ACCESS_TOKEN" \
-  --directory $PWD/backup \
-  --overwrite \
-  --schedule "0 0 0 * * *"
-``` 
 
 The following docker command will perform a **schedule** of the Portainer data.
 ```shell
@@ -229,25 +122,20 @@ docker run -it --rm \
   --env PORTAINER_BACKUP_OVERWRITE=true  \
   --env PORTAINER_BACKUP_DIRECTORY=/backup \
   --env PORTAINER_BACKUP_SCHEDULE="0 0 0 * * *" \
-  savagesoftware/portainer-backup:latest \
+  dockurr/portainer-backup:latest \
   schedule
 ``` 
 
 ### Info
 
 The **info** operation will perform an information request to the specified Portainer server.  The process will terminate immedately after the **info** operation is complete.
- 
-The following command will perform a **info** from the Portainer server.
-```shell
-portainer-backup info --url "http://portainer:9000"
-``` 
 
 The following docker command will perform a **info** request from the Portainer data.
 ```shell
 docker run -it --rm \
   --name portainer-backup \
   --env PORTAINER_BACKUP_URL="http://portainer:9000" \
-  savagesoftware/portainer-backup:latest \
+  dockurr/portainer-backup:latest \
   info
 ``` 
 
@@ -255,16 +143,6 @@ docker run -it --rm \
 
 The **stacks** operation will perform a single backup of the Portainer stacks `docker-compose` data from the specified server.   This operation does not backup the Portainer database/data files, only the stacks.   Alternatively you can include stacks backups in the **backup** operation using the `--stacks` option.  The process will terminate immedately after the **stacks** operation is complete.
  
-The following command will perform a **stacks** of the Portainer data.
-```shell
-portainer-backup \
-  backup \
-  --url "http://portainer:9000" \
-  --token "PORTAINER_ACCESS_TOKEN" \
-  --directory $PWD/backup \
-  --stacks
-``` 
-
 The following docker command will perform a **stacks** of the Portainer data.
 ```shell
 docker run -it --rm \
@@ -275,7 +153,7 @@ docker run -it --rm \
   --env PORTAINER_BACKUP_TOKEN="PORTAINER_ACCESS_TOKEN" \
   --env PORTAINER_BACKUP_OVERWRITE=true  \
   --env PORTAINER_BACKUP_DIRECTORY=/backup \
-  savagesoftware/portainer-backup:latest \
+  dockurr/portainer-backup:latest \
   stacks
 ``` 
 
@@ -566,9 +444,6 @@ Use the `help` command or `--help` option to see a listing of command line optio
  |  _/ _ \ '_|  _/ _` | | ' \/ -_) '_| | _ \/ _` / _| / / || | '_ \
  |_| \___/_|  \__\__,_|_|_||_\___|_|   |___/\__,_\__|_\_\\_,_| .__/
                                                              |_|   
-┌──────────────────────────────────────────────────────────────────┐
-│   Made with ♥ by SavageSoftware, LLC © 2022    (Version 0.0.6)   │
-└──────────────────────────────────────────────────────────────────┘
 
 Usage: <command> [(options...)]
 
@@ -664,42 +539,11 @@ Schedule Expression Examples: (cron syntax)
     Additional Examples @ https://github.com/node-cron/node-cron#cron-syntax
 ```
 
----
+[build_url]: https://github.com/dockur/portainer-backup/
+[hub_url]: https://hub.docker.com/r/dockurr/portainer-backup/
+[tag_url]: https://hub.docker.com/r/dockurr/portainer-backup/tags
 
-## Docker Compose
-
-Alternatively you can use a `docker-compose.yml` file to launch your **portainer-backup** container.  Below is a sample `docker-compose.yml` file you can use to get started:
-
-```yaml
-version: '3.8'
-services:
-  portainer-backup:
-    container_name: portainer-backup
-    image: savagesoftware/portainer-backup:latest
-    hostname: portainer-backup
-    restart: unless-stopped
-    command: schedule
-    environment:
-      TZ: America/New_York
-      PORTAINER_BACKUP_URL: "http://portainer:9000"
-      PORTAINER_BACKUP_TOKEN: "PORTAINER_ACCESS_TOKEN"
-      PORTAINER_BACKUP_PASSWORD: ""
-      PORTAINER_BACKUP_OVERWRITE: 1
-      PORTAINER_BACKUP_SCHEDULE: "0 0 0 * * *"
-      PORTAINER_BACKUP_STACKS: 1
-      PORTAINER_BACKUP_DRYRUN: 0
-      PORTAINER_BACKUP_CONCISE: 1
-      PORTAINER_BACKUP_DIRECTORY: "/backup"
-      PORTAINER_BACKUP_FILENAME: "portainer-backup.tar.gz"
-    volumes:
-      - /var/backup:/backup
-```
-
-Just run the `docker-compose up -d` command in the same directory as your `docker-compose.yml` file to launch the container instance.
-
-Supported Docker platforms:
-  * `linux/amd64` (Intel/AMD x64)
-  * `linux/arm64` (ARMv8)
-  * `linux/arm` (ARMv7)
-
----
+[Build]: https://github.com/dockur/portainer-backup/actions/workflows/build.yml/badge.svg
+[Size]: https://img.shields.io/docker/image-size/dockurr/portainer-backup/latest?color=066da5&label=size
+[Pulls]: https://img.shields.io/docker/pulls/dockurr/portainer-backup.svg?style=flat&label=pulls&logo=docker
+[Version]: https://img.shields.io/docker/v/dockurr/portainer-backup/latest?arch=amd64&sort=semver&color=066da5
