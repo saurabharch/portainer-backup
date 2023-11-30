@@ -11,7 +11,7 @@
 
 </div></h1>
 
-Docker container of [Portainer Backup](https://github.com/SavageSoftware/portainer-backup) by SavageSoftware.
+Fork of [Portainer Backup](https://github.com/SavageSoftware/portainer-backup) by SavageSoftware with some small updates.
 
 This utility can backup the entire Portainer database, optionally protect the archive file with a password and can additionally backup the `docker-compose` files for stacks created in the Portainer web interface.
 
