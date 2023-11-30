@@ -1,6 +1,6 @@
 <h1 align="center">Portainer Backup<br />
 <div align="center">
-<img src="https://github.com/dockur/portainer-backup/raw/master/assets/screenshot.jpg" title="Screenshot" style="max-width:100%;" width="256" />
+<img src="https://raw.githubusercontent.com/dockur/portainer-backup/master/.github/logo.jpg" title="Screenshot" style="max-width:100%;" width="256" />
 </div>
 <div align="center">
 
