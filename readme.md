@@ -11,7 +11,9 @@
 
 </div></h1>
 
-A utility for scripting or scheduling Portainer backups.  This utility can backup the entire Portainer database, optionally protect the archive file with a password and can additionally backup the `docker-compose` files for stacks created in the Portainer web interface.
+Docker container of [Portainer Backup](https://github.com/SavageSoftware/portainer-backup) by SavageSoftware.
+
+This utility can backup the entire Portainer database, optionally protect the archive file with a password and can additionally backup the `docker-compose` files for stacks created in the Portainer web interface.
 
 ## Usage
 
@@ -439,12 +441,6 @@ Example:
 Use the `help` command or `--help` option to see a listing of command line options directly via the CLI.
 
 ```
-  ___         _        _                ___          _             
- | _ \___ _ _| |_ __ _(_)_ _  ___ _ _  | _ ) __ _ __| |___  _ _ __ 
- |  _/ _ \ '_|  _/ _` | | ' \/ -_) '_| | _ \/ _` / _| / / || | '_ \
- |_| \___/_|  \__\__,_|_|_||_\___|_|   |___/\__,_\__|_\_\\_,_| .__/
-                                                             |_|   
-
 Usage: <command> [(options...)]
 
 Commands:
