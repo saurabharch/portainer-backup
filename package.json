@@ -1,8 +1,9 @@
 {
     "name": "portainer-backup",
-    "version": "0.0.7",
+    "private": true,
+    "version": "0.0.0-development",
     "description": "Utility for scripting or scheduling scheduled backups for Portainer",
-    "readme": "README.md",
+    "readme": "readme.md",
     "keywords": [
         "portainer",
         "backup",
@@ -10,15 +11,11 @@
         "kubernetes",
         "container"
     ],
-    "homepage": "https://github.com/SavageSoftware/portainer-backup",
-    "bugs": "https://github.com/SavageSoftware/portainer-backup/issues",
-    "author": {
-        "name": "SavageSoftware, LLC.",
-        "url": "https://savagesoftware.com"
-    },
+    "homepage": "https://github.com/dockur/portainer-backup",
+    "bugs": "https://github.com/dockur/portainer-backup/issues",
     "repository": {
         "type": "git",
-        "url": "https://github.com/SavageSoftware/portainer-backup.git"
+        "url": "https://github.com/dockur/portainer-backup.git"
     },
     "engines": {
         "node": ">=16"
