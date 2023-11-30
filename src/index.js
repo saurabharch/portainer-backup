@@ -934,7 +934,7 @@ function validateStackFiles(context){
             let stack = context.cache.stacks[index];
 
             // check for existing docker-compose file for this stack data
-            const filename = sanitize(`${stack.Name}.docker-compose.yaml`);
+            const filename = sanitize(`${stack.Name}.${stack.Id}.docker-compose.yaml`);
             const stackFile = path.resolve(context.results.backup.directory, filename)
 
             // assign stack file reference
