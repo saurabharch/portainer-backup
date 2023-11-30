@@ -2,4 +2,11 @@ backup
 Dockerfile
 .gitignore
 .git
+.github
+.gitlab-ci.yml
+.gitmodules
 node_modules
+.dockerignore
+docker-compose.yml
+
+*.md
