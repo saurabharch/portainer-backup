@@ -148,7 +148,7 @@ yargs(hideBin(process.argv))
   .epilog("    Additional Examples @ https://github.com/node-cron/node-cron#cron-syntax")
   .epilog("                                               ")
   .epilog('-------------------------------------------------------------------------------')
-  .epilog('    MORE DETAILS @       https://github.com/SavageSoftware/portainer-backup    ')  
+  .epilog('    MORE DETAILS @       https://github.com/dockur/portainer-backup    ')  
   .epilog('-------------------------------------------------------------------------------')
 
   // we will handle this extraction/interpretation of envrionment variables process 
