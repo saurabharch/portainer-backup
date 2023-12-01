@@ -57,7 +57,7 @@ export class Render {
 
         // display header message
         var table = new Table({
-            head: [{hAlign:'center', content: `Made with ${colors.bold.red(figures.heart)} by SavageSoftware, LLC © 2022    (Version ${this.context.version})`}],
+            head: [{hAlign:'center', content: `Made with ${colors.bold.red(figures.heart)} by SavageSoftware, LLC © 2023    (Version ${this.context.version})`}],
             style:{head:['dim'],border:['dim']},
             wordWrap:false,
             colWidths:[66]    
