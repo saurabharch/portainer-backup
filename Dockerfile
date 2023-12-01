@@ -2,13 +2,14 @@ FROM --platform=$BUILDPLATFORM node:alpine as builder
 
 WORKDIR /portainer-backup
 
-RUN apk update && apk add --no-cache tzdata
 RUN mkdir -p /portainer-backup/src
 COPY package.json /portainer-backup
 COPY src/*.js /portainer-backup/src
-RUN sed -i "s/0.0.0-development/${VERSION_ARG}/" /portainer-backup/package.json
 
 ARG VERSION_ARG="0.0"
+RUN sed -i "s/0.0.0-development/${VERSION_ARG}/" /portainer-backup/package.json
+RUN apk update && apk add --no-cache tzdata
+
 ARG TARGETPLATFORM
 ENV NODE_ENV=production
 
