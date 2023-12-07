@@ -47,7 +47,7 @@
         "gradient-string": "^2.0.2",
         "log-symbols": "^5.1.0",
         "luxon": "^3.0.1",
-        "node-cron": "^3.0.1",
+        "node-cron": "^3.0.3",
         "pretty-bytes": "^6.1.1",
         "sanitize-filename": "^1.6.3",
         "semver-parser": "^4.0.1",
