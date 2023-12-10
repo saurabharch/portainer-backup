@@ -52,6 +52,6 @@
         "sanitize-filename": "^1.6.3",
         "semver-parser": "^4.0.1",
         "uuid": "^9.0.1",
-        "yargs": "^17.5.1"
+        "yargs": "^17.7.2"
     }
 }
