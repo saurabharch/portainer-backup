@@ -25,7 +25,7 @@ RUN case ${TARGETPLATFORM} in \
 FROM node:alpine as runner
 ENV NODE_ENV=production
 
-RUN apk update && apk add --no-cache tzdata
+RUN apk add --no-cache tzdata
 
 VOLUME "/backup"
 WORKDIR /portainer-backup
