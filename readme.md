@@ -24,7 +24,7 @@ version: '3.8'
 services:
   portainer-backup:
     container_name: portainer-backup
-    image: dockurr/portainer-backup:latest
+    image: dockurr/portainer-backup
     hostname: portainer-backup
     restart: unless-stopped
     command: schedule
@@ -52,7 +52,7 @@ docker run -it --rm \
   --volume $PWD/backup:/backup \
   --env PORTAINER_BACKUP_URL="http://portainer:9000" \
   --env PORTAINER_BACKUP_TOKEN="YOUR_ACCESS_TOKEN" \
-  dockurr/portainer-backup:latest \
+  dockurr/portainer-backup \
   backup
 ```
 
