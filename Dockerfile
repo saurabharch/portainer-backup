@@ -16,9 +16,8 @@ ENV NODE_ENV=production
 RUN case ${TARGETPLATFORM} in \
          "linux/amd64")  NPM_ARCH="x64" ;; \
          "linux/arm64")  NPM_ARCH="arm64" ;; \
-         "linux/arm/v7") NPM_ARCH="arm" ;; \
-         "linux/arm/v6") NPM_ARCH="arm" ;; \
-         "linux/386")       NPM_ARCH="ia32" ;; \
+         "linux/arm"*)   NPM_ARCH="arm" ;; \
+         *) exit 1 ;; \
     esac \
  && npm install --cpu=${NPM_ARCH} --os=linux --omit=dev
     
