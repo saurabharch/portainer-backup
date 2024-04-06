@@ -17,7 +17,7 @@ This utility can backup the entire Portainer database, optionally protect the ar
 
 ## Usage
 
-Via `compose.yml`
+Via Docker Compose:
 
 ```yaml
 version: '3.8'
@@ -44,7 +44,7 @@ services:
       - /var/backup:/backup
 ```
 
-Via `docker run`
+Via Docker CLI:
 
 ```shell
 docker run -it --rm \
