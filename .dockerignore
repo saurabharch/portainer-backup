@@ -7,7 +7,10 @@ Dockerfile
 .gitmodules
 node_modules
 .dockerignore
+compose.yml
+compose.yaml
 docker-compose.yml
+docker-compose.yaml
 renovate.json
 
 *.md
