@@ -24,8 +24,6 @@ services:
   portainer-backup:
     container_name: portainer-backup
     image: dockurr/portainer-backup
-    hostname: portainer-backup
-    restart: unless-stopped
     command: schedule
     environment:
       TZ: "America/New_York"
