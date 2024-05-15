@@ -1,7 +1,7 @@
 services:
   portainer-backup:
     container_name: portainer-backup
-    image: dockurr/portainer-backup:latest
+    image: dockurr/portainer-backup
     command: schedule
     environment:
       TZ: "America/New_York"
