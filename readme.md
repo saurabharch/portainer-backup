@@ -20,7 +20,6 @@ This utility can backup the entire Portainer database, optionally protect the ar
 Via Docker Compose:
 
 ```yaml
-version: '3.8'
 services:
   portainer-backup:
     container_name: portainer-backup
