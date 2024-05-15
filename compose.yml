@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   portainer-backup:
     container_name: portainer-backup
