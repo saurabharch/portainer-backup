@@ -13,9 +13,13 @@
 
 Fork of [Portainer Backup](https://github.com/SavageSoftware/portainer-backup) by SavageSoftware with some small bugfixes and updated dependencies.
 
-This utility can backup the entire Portainer database, optionally protect the archive file with a password and can additionally backup the `docker-compose` files for stacks created in the Portainer web interface.
+## Features ✨
 
-## Usage
+  - Backup the entire Portainer database
+  - Backup the `docker-compose` files for stacks created in the Portainer web interface
+  - Protect the archive file with a password
+
+## Usage  🐳
 
 Via Docker Compose:
 
@@ -55,7 +59,7 @@ docker run -it --rm \
 
 ---
 
-## Supported Commands & Operations
+## Supported Commands & Operations ⚙️
 
 This utility requires a single command to execute one of the built in operations.
 
@@ -346,7 +350,7 @@ The folllowing substition **presets** are provided my the [Luxon](https://moment
 | `DATETIME_FULL_WITH_SECONDS` | full date and time with abbreviated named offset with seconds      | `October 14, 1983, 1:30:23 PM EDT`                           | `14 octobre 1983 à 13:30:23 UTC−4`                         |
 | `DATETIME_HUGE_WITH_SECONDS` | full date and time with weekday and full named offset with seconds | `Friday, October 14, 1983, 1:30:23 PM Eastern Daylight Time` | `vendredi 14 octobre 1983 à 13:30:23 heure d’été de l’Est` |
 
-## Stars
+## Stars 🌟
 [![Stars](https://starchart.cc/dockur/portainer-backup.svg?variant=adaptive)](https://starchart.cc/dockur/portainer-backup)
 
 [build_url]: https://github.com/dockur/portainer-backup/
