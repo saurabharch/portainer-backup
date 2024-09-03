@@ -363,5 +363,4 @@ The folllowing substition **presets** are provided my the [Luxon](https://moment
 [Size]: https://img.shields.io/docker/image-size/dockurr/portainer-backup/latest?color=066da5&label=size
 [Pulls]: https://img.shields.io/docker/pulls/dockurr/portainer-backup.svg?style=flat&label=pulls&logo=docker
 [Version]: https://img.shields.io/docker/v/dockurr/portainer-backup/latest?arch=amd64&sort=semver&color=066da5
-[Package]: 
-https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fipitio.github.io%2Fbackage%2Fdockur%2Fportainer-backup%2Fportainer-backup.json&query=%24.downloads&logo=github&style=flat&color=066da5&label=pulls
+[Package]: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fipitio.github.io%2Fbackage%2Fdockur%2Fportainer-backup%2Fportainer-backup.json&query=%24.downloads&logo=github&style=flat&color=066da5&label=pulls
