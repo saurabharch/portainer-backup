@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM node:alpine as builder
+FROM --platform=$BUILDPLATFORM node:alpine AS builder
 
 WORKDIR /portainer-backup
 
@@ -21,7 +21,7 @@ RUN case ${TARGETPLATFORM} in \
     esac \
  && npm install --cpu=${NPM_ARCH} --os=linux --omit=dev
     
-FROM node:alpine as runner
+FROM node:alpine AS runner
 ENV NODE_ENV=production
 
 RUN apk add --no-cache tzdata && rm -rf /var/cache/apk/*
